@@ -1,0 +1,40 @@
+class Enemy:
+    def __init__(self, name):
+        self.name = name
+
+class EnemyIterator:
+    def __init__(self, enemies):
+        self.enemies = enemies
+        self.index = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.index < len(self.enemies):
+            enemy = self.enemies[self.index]
+            self.index += 1
+            return enemy
+        else:
+            raise StopIteration()
+
+class ShooterGame:
+
+    def __init__(self):
+        self.enemies = []
+
+    def add_enemy(self, enemy):
+        self.enemies.append(enemy)
+
+    def create_iterator(self):
+        return EnemyIterator(self.enemies)
+
+game = ShooterGame()
+game.add_enemy(Enemy("Enemy 1"))
+game.add_enemy(Enemy("Enemy 2"))
+game.add_enemy(Enemy("Enemy 3"))
+
+
+enemy_iterator = game.create_iterator()
+for enemy in enemy_iterator:
+    print(enemy.name)
